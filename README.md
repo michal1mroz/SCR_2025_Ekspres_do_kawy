@@ -47,4 +47,4 @@ Cała interakcja użytkownika z systemem prowadzona będzie przez udostępniony 
 |`CoffeMachineController`|Proces kontrolujący działanie urządzenia.|
 
 ### Urządzenia dodatkowe
-System wyposażony jest w procesor `Processor` kontrolujący działanie systemu, magistralę danych `Bus`. Oprócz tego dołączona jest pamięć `Ram` przechowująca stan urządzenia, oraz pamięć `Memory` przechowującą domyślne ustawienia.
+System wyposażony jest w procesor `Processor` kontrolujący działanie systemu, magistralę danych `MainBus`. Oprócz tego dołączona jest pamięć `Ram` przechowująca stan urządzenia, oraz pamięć `MainMemory` przechowującą domyślne ustawienia.
