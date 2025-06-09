@@ -1,0 +1,15 @@
+Weight totals Report
+
+water_sensor: [L] Sum of weights / gross weight is 0,100 kg (no limit specified)
+coffe_sensor: [L] Sum of weights / gross weight is 0,100 kg (no limit specified)
+milk_sensor: [L] Sum of weights / gross weight is 0,100 kg (no limit specified)
+interface: [L] Sum of weights / gross weight is 0,250 kg (no limit specified)
+main_memory: [L] Sum of weights / gross weight is 0,150 kg (no limit specified)
+main_processor: [L] Sum of weights / gross weight is 0,100 kg (no limit specified)
+grinder: [L] Sum of weights / gross weight is 0,500 kg (no limit specified)
+heater: [L] Sum of weights / gross weight is 0,300 kg (no limit specified)
+frother: [L] Sum of weights / gross weight is 0,200 kg (no limit specified)
+Warning! make_coffe_s: [G] Sum of weights (1,000 kg) exceeds gross weight of 0,200 kg
+make_coffe_s: [L] Sum of weights / gross weight is 1,000 kg (no limit specified)
+Warning! CoffeMaker_impl_Instance: [G] Sum of weights (1,800 kg) exceeds gross weight of 0,200 kg
+CoffeMaker_impl_Instance: [A] Sum of weights (1,800 kg) is below weight limit of 3,000 kg (40,0 % Weight slack)

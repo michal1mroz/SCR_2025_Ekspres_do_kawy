@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="74cadb18-da09-4358-835e-3cacae50a99f" manual="true">
+    <element uuid="0e830606-af9d-4a78-b286-a60c7291e2a7" manual="true">
+      <element uuid="c884fd58-a16b-4e53-bd76-9dbd22e21fd9" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>item_level_in</seg>
+        </bo>
+        <position y="64.0"/>
+      </element>
+      <element uuid="01e818ee-6de5-4874-bc6c-d6b10883b6b4" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>order_in</seg>
+        </bo>
+        <position y="118.0"/>
+      </element>
+      <element uuid="eb3c3c63-f0ef-46f7-bc88-2387e35a9930" manual="true" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>order_out</seg>
+        </bo>
+        <position x="229.3066635131836" y="100.0"/>
+      </element>
+      <element uuid="0286cf29-a6d0-4f99-8889-d773c0dbe1b2" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>status</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <element uuid="9ab8c4b0-60c9-4c37-8d38-10ac13e5c852" manual="true" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>status_out</seg>
+        </bo>
+        <position x="225.98666381835938" y="28.0"/>
+      </element>
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>component_instance</seg>
+        <seg>interface_t</seg>
+      </bo>
+      <position x="504.39998626708984" y="89.0"/>
+      <size width="303.1466598510742" height="172.0"/>
+    </element>
+    <element uuid="5c58a6fd-643d-4afc-bf6d-f952f3fa9652" manual="true">
+      <element uuid="56680402-a618-48fc-8b99-9a062286adb1" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>coffe_in</seg>
+        </bo>
+        <position y="64.0"/>
+      </element>
+      <element uuid="b8342cc8-8d2d-4d79-9ec2-91b7d4f6d705" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>milk_in</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <element uuid="0fff189d-d718-4acb-8645-2429d0ba0f30" manual="true" dockArea="right">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>status</seg>
+        </bo>
+        <position x="219.67999649047852" y="64.0"/>
+      </element>
+      <element uuid="4d837ebb-f385-472a-acf6-837d58a6ccdf" manual="true" dockArea="left">
+        <bo>
+          <seg>org.osate.ge.diagrams.instance</seg>
+          <seg>feature_instance</seg>
+          <seg>water_in</seg>
+        </bo>
+        <position y="118.0"/>
+      </element>
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>component_instance</seg>
+        <seg>item_sensor_t</seg>
+      </bo>
+      <position x="214.5999984741211" y="89.0"/>
+      <size width="269.7999954223633" height="172.0"/>
+    </element>
+    <element uuid="08098bdd-5de2-4b14-a3e0-8044f187e2e6" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>coffe_in_c : CoffeMaker_p_impl_Instance.coffe_in -> CoffeMaker_p_impl_Instance.item_sensor_t.coffe_in</seg>
+      </bo>
+    </element>
+    <element uuid="67e2f083-a55e-4bdd-a1db-0f32bff1103a" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>item_level_c : CoffeMaker_p_impl_Instance.item_sensor_t.status -> CoffeMaker_p_impl_Instance.interface_t.item_level_in</seg>
+      </bo>
+    </element>
+    <element uuid="cf16ac56-258d-4e3d-a84e-73fe5073bd75" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>milk_in_c : CoffeMaker_p_impl_Instance.milk_in -> CoffeMaker_p_impl_Instance.item_sensor_t.milk_in</seg>
+      </bo>
+    </element>
+    <element uuid="73d48574-c2d3-43e3-9b2a-6e550ded63fc" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>order_in_c : CoffeMaker_p_impl_Instance.order_in -> CoffeMaker_p_impl_Instance.interface_t.order_in</seg>
+      </bo>
+      <bendpoints>
+        <point x="744.4000244140625" y="357.0"/>
+        <point x="744.4000244140625" y="303.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="90379bcf-08d7-4271-9cda-a331b3b705e8" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>order_out_c : CoffeMaker_p_impl_Instance.interface_t.order_out -> CoffeMaker_p_impl_Instance.order_out</seg>
+      </bo>
+    </element>
+    <element uuid="9f4d7913-22bb-4531-8321-3e1c7bd66c8b" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>status_in_c : CoffeMaker_p_impl_Instance.status_in -> CoffeMaker_p_impl_Instance.interface_t.status</seg>
+      </bo>
+      <bendpoints>
+        <point x="744.4000244140625" y="138.0"/>
+        <point x="744.4000244140625" y="195.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="eb8354b4-6adf-4373-b3ce-2c5d43548c51" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>status_out_c : CoffeMaker_p_impl_Instance.interface_t.status_out -> CoffeMaker_p_impl_Instance.status_out</seg>
+      </bo>
+    </element>
+    <element uuid="9c24c730-fab5-4000-907e-295550cfa2ab" manual="true">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>connection_reference</seg>
+        <seg>water_in_c : CoffeMaker_p_impl_Instance.water_in -> CoffeMaker_p_impl_Instance.item_sensor_t.water_in</seg>
+      </bo>
+    </element>
+    <element uuid="ef012d2c-dd60-4973-9f3c-79b05a606ef6" manual="true" dockArea="left">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>feature_instance</seg>
+        <seg>coffe_in</seg>
+      </bo>
+      <position y="153.0"/>
+    </element>
+    <element uuid="a1cef1b6-3a5c-403b-b41d-15231f54a7c5" manual="true" dockArea="left">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>feature_instance</seg>
+        <seg>milk_in</seg>
+      </bo>
+      <position y="99.0"/>
+    </element>
+    <element uuid="19c1eb48-dfb7-46d0-b522-4fc2781fb087" manual="true" dockArea="left">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>feature_instance</seg>
+        <seg>order_in</seg>
+      </bo>
+      <position y="261.0"/>
+    </element>
+    <element uuid="5a47df2b-d851-400e-8ad7-8ff72f166985" manual="true" dockArea="right">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>feature_instance</seg>
+        <seg>order_out</seg>
+      </bo>
+      <position x="900.0266265869141" y="189.0"/>
+    </element>
+    <element uuid="20aac27a-44f5-470d-bcc7-39e7d9529e0c" manual="true" dockArea="left">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>feature_instance</seg>
+        <seg>status_in</seg>
+      </bo>
+      <position y="42.0"/>
+    </element>
+    <element uuid="5c94602d-2a4d-4373-8b76-3cbd604c893a" manual="true" dockArea="right">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>feature_instance</seg>
+        <seg>status_out</seg>
+      </bo>
+      <position x="896.7066268920898" y="117.0"/>
+    </element>
+    <element uuid="aeef0480-55f6-49b7-b84e-9a4f90958cbf" manual="true" dockArea="left">
+      <bo>
+        <seg>org.osate.ge.diagrams.instance</seg>
+        <seg>feature_instance</seg>
+        <seg>water_in</seg>
+      </bo>
+      <position y="207.0"/>
+    </element>
+    <bo>
+      <seg>org.osate.ge.diagrams.instance</seg>
+      <seg>system_instance</seg>
+      <seg>/coffeemachine/instances/processes_coffemaker_p_impl_instance.aaxl2</seg>
+    </bo>
+    <position x="250.0" y="60.0"/>
+    <size width="973.8666229248047" height="317.0"/>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties>
+      <property>deployment_properties::actual_memory_binding</property>
+      <property>deployment_properties::actual_processor_binding</property>
+      <property>deployment_properties::actual_connection_binding</property>
+    </enabledAadlProperties>
+    <context>
+      <seg>org.osate.ge.diagrams.instance</seg>
+      <seg>system_instance</seg>
+      <seg>/coffeemachine/instances/processes_coffemaker_p_impl_instance.aaxl2</seg>
+    </context>
+  </config>
+</diagram:Diagram>

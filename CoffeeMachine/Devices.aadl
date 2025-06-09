@@ -1,0 +1,104 @@
+package Devices
+public
+	with Base_Types;
+	with SEI;
+	with Types;
+
+	bus FrontBus
+		properties
+			Transmission_Time => [Fixed => 1ns..2ns; PerByte => 5ns ..6ns;];
+ 			Period => 1ns;
+ 			SEI::BandWidthCapacity => 2.0 MBytesps;
+ 			SEI::BandWidthBudget => 200.0 KBytesps;
+	end FrontBus;
+
+	bus BackBus
+		properties
+			Transmission_Time => [Fixed => 1ns..2ns; PerByte => 5ns ..6ns;];
+ 			Period => 1ns;
+ 			SEI::BandWidthCapacity => 2.0 MBytesps;
+ 			SEI::BandWidthBudget => 200.0 KBytesps;
+	end BackBus;
+
+	processor MainProcessor
+		features
+			front_bus: requires bus access FrontBus;
+			back_bus: requires bus access BackBus;
+		properties
+			Scheduling_Protocol => (Round_Robin_Protocol);
+			Clock_Period => 1 ms;
+			Timing_Properties::Processor_Capacity => 1.0 MIPS;
+			SEI::MIPSCapacity => 1.2 mips;
+			SEI::GrossWeight => 0.1 kg;
+	end MainProcessor;
+
+	memory MainMemory
+		features
+			bus_access: requires bus access FrontBus;
+		properties
+ 			SEI::GrossWeight => 0.15 kg;
+	end MainMemory;
+
+	device Grinder
+		features
+			status: out data port Base_Types::Boolean;
+			order: in data port Base_Types::Integer;
+			bus_access: requires bus access BackBus;
+		properties	
+ 			SEI::GrossWeight => 0.5 kg;
+ 			Dispatch_Protocol => Aperiodic;
+	end Grinder;
+	
+	device implementation Grinder.impl
+	end Grinder.impl;
+
+	device Heater
+		features
+			status: out data port Base_Types::Boolean;
+			order: in data port Types::HeaterOrder.impl;
+			bus_access: requires bus access BackBus;
+		properties
+			Dispatch_Protocol => Aperiodic;
+ 			SEI::GrossWeight => 0.3 kg;
+	end Heater;
+
+	device Frother
+		features
+			status: out data port Base_Types::Boolean;
+			order: in data port Types::MilkOrder.impl;
+			bus_access: requires bus access BackBus;
+		properties
+ 			SEI::GrossWeight => 0.2 kg;
+ 			Dispatch_Protocol => Aperiodic;
+	end Frother;
+
+	device Controller
+		features
+			result: in data port Base_Types::Boolean;
+			order: out data port Types::CoffeOrder.impl;
+			bus_access: requires bus access FrontBus;
+		properties
+ 			SEI::GrossWeight => 0.25 kg;
+ 			Dispatch_Protocol => Aperiodic;
+	end Controller;
+
+	device ItemSensor
+		features
+			status: out data port Base_Types::Float;
+			bus_access: requires bus access BackBus;
+		properties
+			Dispatch_Protocol => Periodic;
+   			Period => 500ms;
+ 			SEI::GrossWeight => 0.1 kg;
+	end ItemSensor;
+
+	device implementation ItemSensor.WaterSensor
+	end ItemSensor.WaterSensor;
+
+	device implementation ItemSensor.CoffeSensor
+	end ItemSensor.CoffeSensor;
+
+	device implementation ItemSensor.MilkSensor
+	end ItemSensor.MilkSensor;
+	
+end Devices;

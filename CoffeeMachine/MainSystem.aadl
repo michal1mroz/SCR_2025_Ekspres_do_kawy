@@ -1,0 +1,256 @@
+package MainSystem 
+public
+	with Base_Types;
+	with SEI;
+	with Devices;
+	with Types;
+
+----------------------------------------------------------------
+-- Subsystem to create coffee
+----------------------------------------------------------------
+
+	thread makeCoffe_t
+		features
+			grinder_status: in data port Base_Types::Boolean;
+			grinder_order: out data port Base_Types::Integer;
+			heater_status: in data port Base_Types::Boolean;
+			heater_order: out data port Types::HeaterOrder.impl;
+			milk_status: in data port Base_Types::Boolean;
+			milk_order: out data port Types::MilkOrder.impl;
+			
+			coffe_order: in data port Types::CoffeOrder.impl;
+			coffe_status: out data port Base_Types::Boolean;
+			
+		properties
+			Dispatch_Offset => 2ms;
+		    Deadline => 30ms;	
+		    Period => 50ms;
+		    Compute_Execution_Time => 0ms..4ms;	
+		 	
+	end makeCoffe_t;
+	
+	thread implementation makeCoffe_t.impl
+	end makeCoffe_t.impl;
+	
+	process makeCoffe_p
+		features
+			grinder_status: in data port Base_Types::Boolean;
+			grinder_order: out data port Base_Types::Integer;
+			heater_status: in data port Base_Types::Boolean;
+			heater_order: out data port Types::HeaterOrder.impl;
+			milk_status: in data port Base_Types::Boolean;
+			milk_order: out data port Types::MilkOrder.impl;
+			
+			coffe_order: in data port Types::CoffeOrder.impl;
+			coffe_status: out data port Base_Types::Boolean;
+			
+		properties
+			SEI::MIPSBudget => 1.0 mips;
+	end makeCoffe_p;
+	
+	process implementation makeCoffe_p.impl
+		subcomponents
+			make_coffe_t: thread makeCoffe_t;
+			
+		connections
+			grinder_status_c: port grinder_status -> make_coffe_t.grinder_status;
+			grinder_order_c: port make_coffe_t.grinder_order -> grinder_order;
+			heater_status_c: port heater_status -> make_coffe_t.heater_status;
+			heater_order_c: port make_coffe_t.heater_order -> heater_order;
+			milk_status_c: port milk_status -> make_coffe_t.milk_status;
+			milk_order_c: port make_coffe_t.milk_order -> milk_order;
+			coffe_order_c: port coffe_order -> make_coffe_t.coffe_order;
+			coffe_status_c: port make_coffe_t.coffe_status -> coffe_status;
+	end makeCoffe_p.impl;
+	
+	system makeCoffeSystem
+		features
+			coffe_finished: out data port Base_Types::Boolean;
+			coffe_order: in data port Types::CoffeOrder.impl;
+			bus_access: requires bus access Devices::BackBus;
+		properties
+			SEI::MIPSBudget => 0.9 mips;
+			SEI::GrossWeight => 0.2 kg;
+			SEI::MIPSCapacity => 2.0 mips;
+	end makeCoffeSystem;
+	
+	system implementation makeCoffeSystem.impl
+		subcomponents
+			grinder: device Devices::Grinder;
+			heater: device Devices::Heater;
+			frother: device Devices::Frother;
+			coffe_p: process makeCoffe_p.impl;
+		connections
+			grinder_out: port grinder.status -> coffe_p.grinder_status;
+			grinder_in: port coffe_p.grinder_order -> grinder.order;
+			heater_out: port heater.status -> coffe_p.heater_status;
+			heater_in: port coffe_p.heater_order -> heater.order;
+			milk_out: port frother.status -> coffe_p.milk_status;
+			milk_in: port coffe_p.milk_order -> frother.order;
+			
+			coffe_in: port coffe_order -> coffe_p.coffe_order;
+			coffe_out: port coffe_p.coffe_status -> coffe_finished;	
+			
+			grinder_bus: bus access bus_access -> grinder.bus_access;
+			heater_bus: bus access bus_access -> heater.bus_access;
+			frother_bus: bus access bus_access -> frother.bus_access;
+	end makeCoffeSystem.impl;
+
+-----------------------------------------------------------------
+-- Main system
+-----------------------------------------------------------------
+
+	thread interfaceController_t
+		features
+			order_out: out data port Types::CoffeOrder.impl;
+			order_in: in data port Types::CoffeOrder.impl;
+			status: in data port Base_Types::Boolean;
+			status_out: out data port Base_Types::Boolean;
+			item_level_in: in data port Base_Types::Boolean;
+		properties
+			Dispatch_Offset => 2ms;
+		    Deadline => 20ms;
+		    Period => 50ms;
+		    Compute_Execution_Time => 0ms..4ms;
+	end interfaceController_t;
+	
+	thread readItemSensors_t
+		features
+			water_in: in data port Base_Types::Float;
+			coffe_in: in data port Base_Types::Float;
+			milk_in: in data port Base_Types::Float;
+			
+			status: out data port Base_Types::Boolean;
+		properties
+			Dispatch_Offset => 2ms;
+		    Deadline => 30ms;
+		    Period => 500ms;
+		    Compute_Execution_Time => 0ms..4ms;	
+	end readItemSensors_t;
+
+	process CoffeMaker_p
+		features
+			water_in: in data port Base_Types::Float;
+			coffe_in: in data port Base_Types::Float;
+			milk_in: in data port Base_Types::Float;
+			status_out: out data port Base_Types::Boolean;
+			
+			order_out: out data port Types::CoffeOrder.impl;
+			order_in: in data port Types::CoffeOrder.impl;
+			status_in: in data port Base_Types::Boolean;
+	end CoffeMaker_p;
+	
+	process implementation CoffeMaker_p.impl
+		subcomponents
+			item_sensor_t: thread readItemSensors_t;
+			interface_t: thread interfaceController_t;
+		connections	
+			water_in_c: port water_in -> item_sensor_t.water_in;
+			coffe_in_c: port coffe_in -> item_sensor_t.coffe_in;
+			milk_in_c: port milk_in -> item_sensor_t.milk_in;
+			
+			status_out_c: port interface_t.status_out -> status_out;
+			item_level_c: port item_sensor_t.status -> interface_t.item_level_in;
+			status_in_c: port status_in -> interface_t.status;
+			order_out_c: port interface_t.order_out -> order_out;
+			order_in_c: port order_in -> interface_t.order_in;
+		properties
+			SEI::MIPSBudget => 0.9 mips;
+			
+	end CoffeMaker_p.impl;
+
+	system CoffeMaker
+		properties
+			SEI::MIPSBudget => 0.5 mips;
+			SEI::GrossWeight => 0.2 kg;
+			SEI::MIPSCapacity => 2.3 mips;
+			SEI::WeightLimit => 3.0 kg;
+	end CoffeMaker;
+	
+	system implementation CoffeMaker.impl
+		subcomponents
+			water_sensor: device Devices::ItemSensor.WaterSensor;
+			coffe_sensor: device Devices::ItemSensor.CoffeSensor;
+			milk_sensor: device Devices::ItemSensor.MilkSensor;
+			
+			interface: device Devices::Controller;
+			coffe_maker_p: process CoffeMaker_p.impl;
+			make_coffe_s: system makeCoffeSystem.impl;
+			
+			front_bus: bus Devices::FrontBus;
+			back_bus: bus Devices::BackBus;
+			main_memory: memory Devices::MainMemory;
+			main_processor: processor Devices::MainProcessor;
+			
+		connections
+			water_in_c: port water_sensor.status -> coffe_maker_p.water_in;
+			milk_in_c: port milk_sensor.status -> coffe_maker_p.milk_in;
+			coffe_in_c: port coffe_sensor.status -> coffe_maker_p.coffe_in;
+			
+			order_out_c: port interface.order -> coffe_maker_p.order_in;
+			order_in_c: port coffe_maker_p.order_out -> make_coffe_s.coffe_order;
+			order_status_c: port make_coffe_s.coffe_finished -> coffe_maker_p.status_in;
+			status_in_c: port coffe_maker_p.status_out -> interface.result;
+			
+			water_bus: bus access back_bus -> water_sensor.bus_access;
+			coffe_bus: bus access back_bus -> coffe_sensor.bus_access;
+			milk_bus: bus access back_bus -> milk_sensor.bus_access;
+			interface_bus: bus access front_bus -> interface.bus_access;
+			memory_bus: bus access front_bus -> main_memory.bus_access;
+			processor_back_bus: bus access back_bus -> main_processor.back_bus;
+			processor_front_bus: bus access front_bus -> main_processor.front_bus;
+			make_coffe_bus: bus access back_bus -> make_coffe_s.bus_access;
+		
+		properties
+			Actual_Memory_Binding => (reference (main_memory)) applies to interface;
+			Actual_Memory_Binding => (reference (main_memory)) applies to main_processor;
+			Actual_Memory_Binding => (reference (main_memory)) applies to coffe_maker_p;
+			
+			Actual_Processor_Binding => (reference (main_processor)) applies to water_sensor;
+			Actual_Processor_Binding => (reference (main_processor)) applies to milk_sensor;
+			Actual_Processor_Binding => (reference (main_processor)) applies to coffe_sensor;
+			Actual_Processor_Binding => (reference (main_processor)) applies to interface;
+			Actual_Processor_Binding => (reference (main_processor)) applies to make_coffe_s.grinder;
+			Actual_Processor_Binding => (reference (main_processor)) applies to make_coffe_s.heater;
+			Actual_Processor_Binding => (reference (main_processor)) applies to make_coffe_s.frother;
+			
+			Actual_Processor_Binding => (reference (main_processor)) applies to coffe_maker_p.item_sensor_t;
+			Actual_Processor_Binding => (reference (main_processor)) applies to coffe_maker_p.interface_t;
+			Actual_Processor_Binding => (reference (main_processor)) applies to make_coffe_s.coffe_p;
+			
+			Actual_Connection_Binding => (reference (front_bus)) applies to order_out_c;
+			Actual_Connection_Binding => (reference (front_bus)) applies to order_in_c;
+			Actual_Connection_Binding => (reference (front_bus)) applies to order_status_c;
+			Actual_Connection_Binding => (reference (front_bus)) applies to status_in_c;
+			
+			Actual_Connection_Binding => (reference (front_bus)) applies to coffe_maker_p.status_out_c;
+			Actual_Connection_Binding => (reference (front_bus)) applies to coffe_maker_p.status_in_c;
+			Actual_Connection_Binding => (reference (front_bus)) applies to coffe_maker_p.order_out_c;
+			Actual_Connection_Binding => (reference (front_bus)) applies to coffe_maker_p.order_in_c;
+			
+			Actual_Connection_Binding => (reference (back_bus)) applies to water_in_c;
+			Actual_Connection_Binding => (reference (back_bus)) applies to milk_in_c;
+			Actual_Connection_Binding => (reference (back_bus)) applies to coffe_in_c;
+			Actual_Connection_Binding => (reference (back_bus)) applies to coffe_maker_p.water_in_c;
+			Actual_Connection_Binding => (reference (back_bus)) applies to coffe_maker_p.coffe_in_c;
+			Actual_Connection_Binding => (reference (back_bus)) applies to coffe_maker_p.milk_in_c;
+			
+			Actual_Connection_Binding => (reference (back_bus)) applies to make_coffe_s.grinder_out;
+			Actual_Connection_Binding => (reference (back_bus)) applies to make_coffe_s.grinder_in;
+			Actual_Connection_Binding => (reference (back_bus)) applies to make_coffe_s.heater_out;
+			Actual_Connection_Binding => (reference (back_bus)) applies to make_coffe_s.heater_in;
+			Actual_Connection_Binding => (reference (back_bus)) applies to make_coffe_s.milk_out;
+			Actual_Connection_Binding => (reference (back_bus)) applies to make_coffe_s.milk_in;
+			Actual_Connection_Binding => (reference (front_bus)) applies to make_coffe_s.coffe_in;
+			Actual_Connection_Binding => (reference (front_bus)) applies to make_coffe_s.coffe_out;
+			Actual_Connection_Binding => (reference (back_bus)) applies to make_coffe_s.coffe_p.grinder_status_c;
+			Actual_Connection_Binding => (reference (back_bus)) applies to make_coffe_s.coffe_p.grinder_order_c;
+			Actual_Connection_Binding => (reference (back_bus)) applies to make_coffe_s.coffe_p.heater_status_c;
+			Actual_Connection_Binding => (reference (back_bus)) applies to make_coffe_s.coffe_p.heater_order_c;
+			Actual_Connection_Binding => (reference (back_bus)) applies to make_coffe_s.coffe_p.milk_status_c;
+			Actual_Connection_Binding => (reference (back_bus)) applies to make_coffe_s.coffe_p.milk_order_c;
+			Actual_Connection_Binding => (reference (front_bus)) applies to make_coffe_s.coffe_p.coffe_order_c;
+			Actual_Connection_Binding => (reference (front_bus)) applies to make_coffe_s.coffe_p.coffe_status_c;
+	end CoffeMaker.impl;
+
+end MainSystem;

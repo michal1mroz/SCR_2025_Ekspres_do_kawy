@@ -1,0 +1,40 @@
+package Types
+public
+	with Base_Types;
+	
+	data MilkOrder
+	end MilkOrder;
+	
+	data implementation MilkOrder.impl
+		subcomponents
+			milk_amount: data Base_Types::Float;
+			froth_level: data Base_Types::Integer;
+		properties
+			Data_Size => 5 Bytes;
+	end MilkOrder.impl;
+	
+	data HeaterOrder
+	end HeaterOrder;
+	
+	data implementation HeaterOrder.impl
+		subcomponents
+			water_amount: data Base_Types::Integer;
+			heater_temp: data Base_Types::Integer;
+			brewing_time: data Base_Types::Integer;
+		properties
+			Data_Size => 3 Bytes;
+	end HeaterOrder.impl;
+	
+	data CoffeOrder
+	end CoffeOrder;
+	
+	data implementation CoffeOrder.impl
+		subcomponents
+			coffe_amount: data Base_Types::Integer;
+			add_milk: data Base_Types::Boolean;
+			milk_order: data MilkOrder.impl;
+			heater_order: data HeaterOrder.impl;
+		properties
+			Data_Size => 8 Bytes;
+	end CoffeOrder.impl;
+end Types;
