@@ -58,12 +58,6 @@ System wyposażony jest w procesor `Processor` kontrolujący działanie systemu,
 
 ## Diagram modelu
 Poniżej przedstawione są diagramy przedstawiające poszczególne fragmenty stworzonego modelu.
-### Schemat systemu `CoffeMaker`
-![alt text](pictures/CoffeMaker_impl.png)
-### Schemat procesu `coffeMaker_p`
-![alt text](pictures/CoffeMaker_p.png)
-### Schemat systemu `makeCoffeSystem`
-![alt text](pictures/makeCoffeSystem.png)
 
 ## Wykonane analizy
 ### WeightAnalysis
