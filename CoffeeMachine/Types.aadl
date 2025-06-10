@@ -2,6 +2,18 @@ package Types
 public
 	with Base_Types;
 	
+	data ItemState
+	end ItemState;
+	
+	data implementation ItemState.impl
+		subcomponents
+			water_level: data Base_Types::Float;
+			coffe_level: data Base_Types::Float;
+			milk_level: data Base_Types::Float;
+		properties
+			Data_Size => 12 Bytes;
+	end ItemState.impl;
+	
 	data MilkOrder
 	end MilkOrder;
 	

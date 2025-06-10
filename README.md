@@ -12,7 +12,7 @@ Urządzenie powinno składać się z interfejsu umożliwiającego użytkownikowi
 ## Opis dla użytkownika:
 Cała interakcja użytkownika z systemem prowadzona będzie przez udostępniony interfejs dający dostęp do różnych funkcjonalności. Zaliczają się do nich:
 * Wybór napoju spośród listy przechowywanej w pamięci urządzenia.
-* Kontrola zasobów (na przykład sprawdzenie dostępnej ilości kawy) i stanu technicznego (stan filtra wody) przez wyświetlenie wartości odczytanych z odpowiednich czujników.
+* Kontrola zasobów (na przykład sprawdzenie dostępnej ilości kawy) przez wyświetlenie wartości odczytanych z odpowiednich czujników.
 * Zapisywanie do pamięci preferencji użytkownika.
 
 ## Spis komponentów

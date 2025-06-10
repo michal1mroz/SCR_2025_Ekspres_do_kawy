@@ -79,6 +79,9 @@ public
 			grinder: device Devices::Grinder;
 			heater: device Devices::Heater;
 			frother: device Devices::Frother;
+			
+			--data_bus: bus Devices::BackBus;
+			
 			coffe_p: process makeCoffe_p.impl;
 		connections
 			grinder_out: port grinder.status -> coffe_p.grinder_status;
@@ -106,7 +109,8 @@ public
 			order_in: in data port Types::CoffeOrder.impl;
 			status: in data port Base_Types::Boolean;
 			status_out: out data port Base_Types::Boolean;
-			item_level_in: in data port Base_Types::Boolean;
+			item_level_in: in data port Types::ItemState.impl;
+			item_level_out: out data port Types::ItemState.impl;
 		properties
 			Dispatch_Offset => 2ms;
 		    Deadline => 20ms;
@@ -120,7 +124,7 @@ public
 			coffe_in: in data port Base_Types::Float;
 			milk_in: in data port Base_Types::Float;
 			
-			status: out data port Base_Types::Boolean;
+			item_levels: out data port Types::ItemState.impl;
 		properties
 			Dispatch_Offset => 2ms;
 		    Deadline => 30ms;
@@ -134,6 +138,7 @@ public
 			coffe_in: in data port Base_Types::Float;
 			milk_in: in data port Base_Types::Float;
 			status_out: out data port Base_Types::Boolean;
+			item_level_out: out data port Types::ItemState.impl;
 			
 			order_out: out data port Types::CoffeOrder.impl;
 			order_in: in data port Types::CoffeOrder.impl;
@@ -150,7 +155,8 @@ public
 			milk_in_c: port milk_in -> item_sensor_t.milk_in;
 			
 			status_out_c: port interface_t.status_out -> status_out;
-			item_level_c: port item_sensor_t.status -> interface_t.item_level_in;
+			item_level_c: port item_sensor_t.item_levels -> interface_t.item_level_in;
+			item_level_out_c: port interface_t.item_level_out -> item_level_out;
 			status_in_c: port status_in -> interface_t.status;
 			order_out_c: port interface_t.order_out -> order_out;
 			order_in_c: port order_in -> interface_t.order_in;
@@ -191,6 +197,7 @@ public
 			order_in_c: port coffe_maker_p.order_out -> make_coffe_s.coffe_order;
 			order_status_c: port make_coffe_s.coffe_finished -> coffe_maker_p.status_in;
 			status_in_c: port coffe_maker_p.status_out -> interface.result;
+			item_level_out_c: port coffe_maker_p.item_level_out -> interface.item_level;
 			
 			water_bus: bus access back_bus -> water_sensor.bus_access;
 			coffe_bus: bus access back_bus -> coffe_sensor.bus_access;
@@ -222,6 +229,8 @@ public
 			Actual_Connection_Binding => (reference (front_bus)) applies to order_in_c;
 			Actual_Connection_Binding => (reference (front_bus)) applies to order_status_c;
 			Actual_Connection_Binding => (reference (front_bus)) applies to status_in_c;
+			Actual_Connection_Binding => (reference (front_bus)) applies to item_level_out_c;
+			Actual_Connection_Binding => (reference (front_bus)) applies to coffe_maker_p.item_level_c;
 			
 			Actual_Connection_Binding => (reference (front_bus)) applies to coffe_maker_p.status_out_c;
 			Actual_Connection_Binding => (reference (front_bus)) applies to coffe_maker_p.status_in_c;

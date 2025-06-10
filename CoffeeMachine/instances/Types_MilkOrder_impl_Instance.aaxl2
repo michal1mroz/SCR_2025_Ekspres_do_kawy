@@ -7,7 +7,7 @@
         <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.15/@ownedLiteral.1"/>
       </ownedValue>
     </ownedValue>
-    <propertyAssociation href="../Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
+    <propertyAssociation href="../Types.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedPropertyAssociation.0"/>
   </ownedPropertyAssociation>
   <componentInstance name="milk_amount" category="data">
     <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
@@ -19,7 +19,7 @@
       </ownedValue>
       <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.11/@ownedPropertyAssociation.0"/>
     </ownedPropertyAssociation>
-    <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataSubcomponent.0"/>
+    <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Types.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedDataSubcomponent.0"/>
     <index>0</index>
     <classifier xsi:type="aadl2:DataType" href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#Base_Types.Float"/>
   </componentInstance>
@@ -33,7 +33,7 @@
       </ownedValue>
       <propertyAssociation href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPropertyAssociation.0"/>
     </ownedPropertyAssociation>
-    <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Types.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedDataSubcomponent.1"/>
+    <subcomponent xsi:type="aadl2:DataSubcomponent" href="../Types.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedDataSubcomponent.1"/>
     <index>0</index>
     <classifier xsi:type="aadl2:DataType" href="platform:/plugin/org.osate.contribution.sei/resources/packages/Base_Types.aadl#Base_Types.Integer"/>
   </componentInstance>

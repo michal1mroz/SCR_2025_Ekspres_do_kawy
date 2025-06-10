@@ -76,6 +76,7 @@ public
 		features
 			result: in data port Base_Types::Boolean;
 			order: out data port Types::CoffeOrder.impl;
+			item_level: in data port Types::ItemState.impl;
 			bus_access: requires bus access FrontBus;
 		properties
  			SEI::GrossWeight => 0.25 kg;
